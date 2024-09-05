@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+/*
+Use the following API and show the Product Name, Description and Image in tabular format. Use CSS to make it visually appealing.*/
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState();
+
+  useEffect(()=>{
+    fetch('https://dummyjson.com/products')
+    .then(res=>res.json())
+    .then(res=>{
+      console.log("res", res)
+      setData(res.products);
+    })
+    .catch(err=>{
+      //
+    })
+
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React Assignement</h1>
+      <table className='styled-table'>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Description</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+      {
+        data && data.map(el=>
+          (<tr>
+            <td>{el.title}</td>
+            <td>{el.description}</td>
+            <td><img src={el.images[0]} alt={el.description} height={50} width={50}/></td>
+          </tr>)
+        )
+      }
+      </tbody>
+      </table>
     </div>
   );
 }
