@@ -32,8 +32,8 @@ function App() {
       </thead>
       <tbody>
       {
-        data && data.map(el=>
-          (<tr>
+        data && data.map((el,i)=>
+          (<tr key={i+el.title}>
             <td>{el.title}</td>
             <td>{el.description}</td>
             <td><img src={el.images[0]} alt={el.description} height={50} width={50}/></td>
